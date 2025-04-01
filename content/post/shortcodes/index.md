@@ -24,7 +24,7 @@ For more details, check out the [documentation](https://stack.jimmycai.com/writi
 {{< video "https://www.w3schools.com/tags/movie.mp4" >}}
 
 ## Gist
-
+![c6e774868ce1daf3cad7822116d2dddf.jpg](..%2F..%2F..%2F..%2F..%2FDownloads%2Fc6e774868ce1daf3cad7822116d2dddf.jpg)
 {{< gist CaiJimmy e2751a943de10b2a5b3a8a6c2120cb86 >}}
 
 ## GitLab
