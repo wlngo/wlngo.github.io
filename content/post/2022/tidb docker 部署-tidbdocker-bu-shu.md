@@ -29,6 +29,7 @@ docker run -d --name pd1 \
   --advertise-peer-urls="http://pd1:2380" \
   --initial-cluster="pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380"
 ```
+
 ## 部署pd2
 ```
 docker run -d --name pd2 \
@@ -49,6 +50,7 @@ docker run -d --name pd2 \
   --advertise-peer-urls="http://pd2:2380" \
   --initial-cluster="pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380"
 ```
+
 ## 部署pd3
 ```
 docker run -d --name pd3 \
@@ -108,6 +110,7 @@ docker run -d --name tikv2 \
   --advertise-status-addr="tikv2:20180" \
   --status-addr="0.0.0.0:20180"
 ```
+
 ## 部署tikv3
 ```docker run -d --name tikv3 \
   --restart always \
@@ -142,6 +145,7 @@ docker run -d --name tidb \
   --store=tikv \
   --path="pd1:2379,pd2:2379,pd3:2379"
 ```
+
 ## 部署tiflash
 ```
 docker run --name tiflash \
