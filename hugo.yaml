@@ -6,7 +6,7 @@ copyright: wlngo
 
 # Theme i18n support
 # Available values: ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw
-DefaultContentLanguage: zh
+DefaultContentLanguage: zh-cn
 
 # Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
 # This will make .Summary and .WordCount behave correctly for CJK languages.
@@ -60,7 +60,8 @@ params:
 
   sidebar:
     emoji: 🍥
-    subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    subtitle:
+      '欢迎来到 Wlngo 博客！这里是探索技术、分享思考与记录成长的地方。'
     avatar:
       enabled: true
       local: true
@@ -204,7 +205,7 @@ params:
 ### See https://stack.jimmycai.com/config/menu
 ### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
-  main: []
+  main: [ ]
 
   social:
     - identifier: github
