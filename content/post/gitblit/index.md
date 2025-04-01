@@ -4,7 +4,7 @@ description: Docker 安装git 私服 gitblit
 slug: gitblit
 date: 2022-07-09 22:12:00+0800
 categories:
-    - docker
+    - git
 tags:
     - docker
 ---
@@ -23,5 +23,3 @@ sudo docker run -d --name gitblit
  --restart=always  jacekkow/gitblit
 
 ```
-
-> Photo by [Pawel Czerwinski](https://unsplash.com/@pawel_czerwinski) on [Unsplash](https://unsplash.com/)
