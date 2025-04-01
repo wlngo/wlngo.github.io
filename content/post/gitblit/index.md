@@ -1,7 +1,7 @@
 ---
 title: gitblit 安装
 description: Docker 安装git 私服 gitblit
-slug: "gitblit"
+slug: gitblit
 date: 2022-07-09 22:12:00+0800
 categories:
     - docker
