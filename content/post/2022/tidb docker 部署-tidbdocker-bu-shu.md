@@ -8,9 +8,12 @@ tags:
   - tidb
   - docker
 ---
-# 部署
+# tidb
+ 分布式数据库 参考[官网文档 https://docs.pingcap.com/zh/tidb/stable/quick-start-with-tidb/]
+## 部署
 
-## 部署pd1
+### 部署pd1
+
 ```
 docker run -d --name pd1 \
   --restart always\
@@ -30,7 +33,7 @@ docker run -d --name pd1 \
   --initial-cluster="pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380"
 ```
 
-## 部署pd2
+### 部署pd2
 ```
 docker run -d --name pd2 \
   -p 2379:2379 \
@@ -51,7 +54,7 @@ docker run -d --name pd2 \
   --initial-cluster="pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380"
 ```
 
-## 部署pd3
+### 部署pd3
 ```
 docker run -d --name pd3 \
   --restart always \
@@ -71,7 +74,7 @@ docker run -d --name pd3 \
   --initial-cluster="pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380"
 ```
 
-## 部署tikv1
+### 部署tikv1
 ```
 docker run -d --name tikv1 \
   --restart always \
@@ -90,7 +93,7 @@ docker run -d --name tikv1 \
   --advertise-status-addr="tikv1:20180" \
   --status-addr="0.0.0.0:20180"
 ```
-## 部署tikv2
+### 部署tikv2
 
 ```
 docker run -d --name tikv2 \
@@ -111,7 +114,7 @@ docker run -d --name tikv2 \
   --status-addr="0.0.0.0:20180"
 ```
 
-## 部署tikv3
+### 部署tikv3
 ```docker run -d --name tikv3 \
   --restart always \
   --ulimit nofile=1000000:1000000 \
@@ -130,7 +133,7 @@ docker run -d --name tikv2 \
   --status-addr="0.0.0.0:20180"
 ```
 
-## 部署tidb
+### 部署tidb
 ```
 docker run -d --name tidb \
   --restart always \
@@ -146,7 +149,7 @@ docker run -d --name tidb \
   --path="pd1:2379,pd2:2379,pd3:2379"
 ```
 
-## 部署tiflash
+### 部署tiflash
 ```
 docker run --name tiflash \
   -e TZ=Asia/Shanghai \
@@ -159,7 +162,7 @@ docker run --name tiflash \
    pingcap/tiflash:v7.1.0 --config=/opt/tidb/tiflash/conf/tiflash.toml
 ```
 
-## 部署ng-monitoring
+### 部署ng-monitoring
 ```
 docker run --name ng-monitoring \
   -e TZ=Asia/Shanghai \
@@ -182,7 +185,7 @@ docker run --name ng-monitoring \
 ```
 
 
-## 内存优化
+### 内存优化
 ```
 docker update --memory 6g --memory-swap -1 tiflash tidb tikv1  tikv2  tikv3  pd1 pd2 pd3
 docker update --memory 1g --memory-swap -1 ng-monitoring
@@ -194,7 +197,7 @@ SELECT @@tidb_server_memory_limit_gc_trigger 默认=0.7
 select sysdate()  查询日期
 ALTER USER 'root'@'%' IDENTIFIED BY 'mypass';  修改root密码 
 
-# HAProxy 代理tidb
+## HAProxy 代理tidb
 安装
 ```
 sudo apt install haproxy
