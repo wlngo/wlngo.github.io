@@ -9,6 +9,7 @@ tags:
   - docker
 ---
 # 部署
+
 ## 部署pd1
 ```
 docker run -d --name pd1 \
@@ -182,6 +183,7 @@ docker run --name ng-monitoring \
 docker update --memory 6g --memory-swap -1 tiflash tidb tikv1  tikv2  tikv3  pd1 pd2 pd3
 docker update --memory 1g --memory-swap -1 ng-monitoring
 ```
+
 SELECT @@tidb_server_memory_limit  默认=80%
 SET GLOBAL tidb_server_memory_limit = "4GB";
 SELECT @@tidb_server_memory_limit_gc_trigger 默认=0.7
