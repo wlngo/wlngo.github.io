@@ -1,7 +1,7 @@
 ---
 title: "归档"
 date: 2022-03-06
-layout: "归档"
+layout: "archives"
 slug: "archives"
 menu:
     main:
