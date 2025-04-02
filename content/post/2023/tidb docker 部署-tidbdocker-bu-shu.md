@@ -1,7 +1,7 @@
 ---
 title: tidb docker 部署
-date: 2022-07-24 00:14:34.932
-updated: 2022-08-08 15:35:44.788
+date: 2023-07-24 00:14:34.932
+updated: 2023-07-24 00:14:34.932
 url: /archives/tidbdocker-bu-shu
 categories:
 tags:
