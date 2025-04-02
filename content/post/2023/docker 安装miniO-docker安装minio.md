@@ -28,7 +28,6 @@ https
 1.证书准备
 将申请的SSL证书 .key结尾的重命名为：private.key和 .crt结尾的重命名为：public.crt 别问为什么，官方规定，不信自己看官方文档：https://min.io/docs/minio/linux/operations/network-encryption.html?ref=docs-redirect
  然后将private.key和public.crt两个文件放到MinIO目录certs下面：/你的minio目录/config/certs
- ![image](/upload/2023/02/image.png)
 ##  监控
 ```
  docker run -it --entrypoint=/bin/sh minio/mc

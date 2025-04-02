@@ -27,8 +27,7 @@ docker run --restart=always --name artifactory-jcr -v $JFROG_HOME/artifactory-jc
 nginx 代理端口要保持一致
 配置需要从管理页面下载
 
-![image-1676703070027](/upload/2023/02/image-1676703070027.png)
-![image-1676703080268](/upload/2023/02/image-1676703080268.png)
+
 ### 限制内存
 system.yaml
 ```

@@ -18,4 +18,3 @@ chrome://net-internals/#hsts
 1. Domain Security Prolicy
 2. Delete remain security prolicies
 
-![image](/upload/2022/12/image.png)

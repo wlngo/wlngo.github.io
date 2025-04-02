@@ -8,10 +8,8 @@ tags:
 ---
 
 设置nexus3 混合仓库
-![image-1657706298018](/upload/2022/07/image-1657706298018.png)
 
 允许重新部署和更新
-![image-1657706333010](/upload/2022/07/image-1657706333010.png)
 批量导入shell脚本
 ```
 #!/bin/bash

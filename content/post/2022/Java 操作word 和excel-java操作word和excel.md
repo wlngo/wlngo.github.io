@@ -14,7 +14,7 @@ tags:
 
 ### jar 包关系结构
 
-![image](/upload/2022/07/image.png)
+
 
 ### 常用maven 依赖网址
 
