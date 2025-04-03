@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dcoker on wlngo blog</title><link>https://wlngo.github.io/categories/dcoker/</link><description>Recent content in Dcoker on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Sat, 30 Jul 2022 11:05:13 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/categories/dcoker/index.xml" rel="self" type="application/rss+xml"/><item><title>docker 安装Logstash:8.6.0</title><link>https://wlngo.github.io/archives/docker-an-zhuang-logstash833/</link><pubDate>Sat, 30 Jul 2022 11:05:13 +0000</pubDate><guid>https://wlngo.github.io/archives/docker-an-zhuang-logstash833/</guid><description>&lt;h4 id="拉去镜像">拉去镜像
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull logstash:8.6.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="运行logstash">运行logstash
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">it&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">logstash&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">net&lt;/span> &lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="mi">5044&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">5044&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="mi">9600&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">9600&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">javarun&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">javarun&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">elk&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">usr&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">share&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">elk&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pipeline&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">usr&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">share&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pipeline&lt;/span>&lt;span class="o">/&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">elk&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">usr&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">share&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">logstash&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">/&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">logstash&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">8.6&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>docker 安装 kibana:8.6.0</title><link>https://wlngo.github.io/archives/docker-an-zhuang-kibana832/</link><pubDate>Thu, 28 Jul 2022 20:19:12 +0000</pubDate><guid>https://wlngo.github.io/archives/docker-an-zhuang-kibana832/</guid><description>&lt;h4 id="下载镜像">下载镜像
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull kibana:8.6.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="创建docke网络">创建docke网络
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker network create elknetwork
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="运行镜像">运行镜像
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run -d --name kibana --restart=always -p 5601:5601 \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/kibana/config/:/usr/share/kibana/config/ \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/kibana/data/:/usr/share/kibana/data/ \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/kibana/plugins/:/usr/share/kibana/plugins/ \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/kibana/logs/:/usr/share/kibana/logs/ \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e TZ=Asia/Shanghai \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /etc/timezone:/etc/timezone:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /etc/localtime:/etc/localtime:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kibana:8.6.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="先使用默认的elasticsearch-https-的设置-不做修改-后面改为http-不然-kibana-无法启动">先使用默认的Elasticsearch https 的设置 不做修改 后面改为http 不然 kibana 无法启动
+&lt;/h4>&lt;h4 id="进入elasticsearch-镜像生产token">进入elasticsearch 镜像生产token
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker exec -it elasticsearch /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sh bin/elasticsearch-create-enrollment-token --scope kibana
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="kibana配置文件必须为默认的-才能设置物理机选择账号密码安装">kibana配置文件必须为默认的 才能设置(物理机选择账号密码安装)
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># Default Kibana configuration for docker target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server.host: &amp;#34;0.0.0.0&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server.shutdownTimeout: &amp;#34;5s&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">elasticsearch.hosts: [ &amp;#34;http://elasticsearch:9200&amp;#34; ]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">monitoring.ui.container.elasticsearch.enabled: true
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="进入kibana-镜像获取验证码">进入kibana 镜像获取验证码
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker exec -it kibana /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sh bin/kibana-verification-code
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="修改elasticsearch-密码">修改Elasticsearch 密码
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker exec -it elasticsearch /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sh bin/elasticsearch-reset-password --username elastic -i
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="生成插件加密密钥并-添加到-kibanayml">生成插件加密密钥并 添加到 kibana.yml
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker exec -it kibana /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> sh bin/kibana-encryption-keys generate
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="修改-kibana-为中文--和修改es地址否则导致重启后无法成功启动-修改为http协议">修改 kibana 为中文 和修改es地址（否则导致重启后无法成功启动 修改为http协议）
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker cp kibana:/usr/share/kibana/config/kibana.yml ~
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="修改ip为容器域名-修改为http协议">修改ip为容器域名 修改为http协议
+&lt;/h5>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># ** THIS IS AN AUTO-GENERATED FILE **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Default Kibana configuration for docker target
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#server.host: &amp;#34;0.0.0.0&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#server.shutdownTimeout: &amp;#34;5s&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#elasticsearch.hosts: [ &amp;#34;http://elasticsearch:9200&amp;#34; ]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#monitoring.ui.container.elasticsearch.enabled: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">### &amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; BACKUP END: Kibana interactive setup (2022-07-30T02:22:45.284Z)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># This section was automatically generated during setup.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server.host: 0.0.0.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server.shutdownTimeout: 5s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">elasticsearch.hosts: [&amp;#39;http://elasticsearch:9200&amp;#39;]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">monitoring.ui.container.elasticsearch.enabled: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">elasticsearch.serviceAccountToken: AAEAAWVsYXN0aWMva2liYW5hL2Vucm9sbC1wcm9jZXNzLXRva2VuLTE2NTkxNDc3NjQ1NTc6NTdaNWtlOHJULXlSWkFfaVg2WWdSUQ
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">elasticsearch.ssl.certificateAuthorities: [/usr/share/kibana/data/ca_1659147765281.crt]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.fleet.outputs: [{id: fleet-default-output, name: default, is_default: true, is_default_monitoring: true, type: elasticsearch, hosts: [&amp;#39;http://elasticsearch:9200&amp;#39;], ca_trusted_fingerprint: 9983b684a10b3cbc24e1c5816d911bdcdb323545fb36bb5fc3f685f3214efae9}]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#中文
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">i18n.locale: &amp;#34;zh-CN&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.encryptedSavedObjects.encryptionKey: b363ba8a4cba829a212a9b1202ea2bb7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.reporting.encryptionKey: b98e56b7304314427f71ec57d1a9d53d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.security.encryptionKey: dc7505bc23e41561e586a025e4d83a45
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker cp kibana.yml kibana:/usr/share/kibana/config/kibana.yml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="修改elasticsearch-为http-协议">修改Elasticsearch 为http 协议
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker exec -it elasticsearch /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker cp elasticsearch:/usr/share/elasticsearch/config/elasticsearch.yml ~
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cluster.name: &amp;#34;docker-cluster&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">network.host: 0.0.0.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#----------------------- BEGIN SECURITY AUTO CONFIGURATION -----------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># The following settings, TLS certificates, and keys have been automatically
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># generated to configure Elasticsearch security features on 30-07-2022 02:12:38
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># --------------------------------------------------------------------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Enable security features
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.security.enabled: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.security.enrollment.enabled: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Enable encryption for HTTP API client connections, such as Kibana, Logstash, and Agents
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.security.http.ssl:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> enabled: false
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> keystore.path: certs/http.p12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Enable encryption and mutual authentication between cluster nodes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xpack.security.transport.ssl:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> enabled: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> verification_mode: certificate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> keystore.path: certs/transport.p12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> truststore.path: certs/transport.p12
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#----------------------- END SECURITY AUTO CONFIGURATION -------------------------
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker cp elasticsearch.yml elasticsearch:/usr/share/elasticsearch/config/elasticsearch.yml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="重启容器">重启容器
+&lt;/h4></description></item><item><title>docker 安装Elasticsearch:8.6.0</title><link>https://wlngo.github.io/archives/docker-an-zhuang-elasticsearch832/</link><pubDate>Thu, 28 Jul 2022 20:17:55 +0000</pubDate><guid>https://wlngo.github.io/archives/docker-an-zhuang-elasticsearch832/</guid><description>&lt;h4 id="下载镜像">下载镜像
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull elasticsearch:8.6.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="创建docke网络">创建docke网络
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker network create elknetwork
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="运行镜像">运行镜像
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run -d --name elasticsearch --restart=always \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-p 9200:9200 -p 9300:9300 -e &amp;#34;discovery.type=single-node&amp;#34; \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e TZ=Asia/Shanghai \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /etc/timezone:/etc/timezone:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /etc/localtime:/etc/localtime:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/elasticsearch/config:/usr/share/elasticsearch/config \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/elasticsearch/data:/usr/share/elasticsearch/data \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/elk/elasticsearch/logs:/usr/share/elasticsearch/logs \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> elasticsearch:8.6.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Docker hub 官网</title><link>https://wlngo.github.io/archives/dockerhub-guan-wang/</link><pubDate>Wed, 13 Jul 2022 20:45:11 +0000</pubDate><guid>https://wlngo.github.io/archives/dockerhub-guan-wang/</guid><description>&lt;p>&lt;a class="link" href="https://hub.docker.com/" target="_blank" rel="noopener"
+>https://hub.docker.com/&lt;/a>&lt;/p></description></item><item><title>Docker 安装git 私服 gitblit</title><link>https://wlngo.github.io/archives/docker%E5%AE%89%E8%A3%85gitblit/</link><pubDate>Sat, 09 Jul 2022 22:12:22 +0000</pubDate><guid>https://wlngo.github.io/archives/docker%E5%AE%89%E8%A3%85gitblit/</guid><description>&lt;h1 id="安装命令">安装命令
+&lt;/h1>&lt;p>拉取镜像&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull jacekkow/gitblit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>启动镜像&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo docker run -d --name gitblit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -v /opt/gitblit-data:/opt/gitblit-data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -p 8443:8443 -p 8080:8080 -p 9418:9418 -p 29418:29418
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --restart=always jacekkow/gitblit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
