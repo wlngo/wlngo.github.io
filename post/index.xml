@@ -5190,7 +5190,29 @@ stress 消耗 CPU 资源的方式是通过调用 sqrt 函数计算由 rand 函�
 &lt;/div>
 &lt;/div></description></item><item><title>Halo 博客搭建和迁移</title><link>https://wlngo.github.io/archives/halo-bo-ke-da-jian-he-qian-yi/</link><pubDate>Sat, 30 Jul 2022 10:53:08 +0000</pubDate><guid>https://wlngo.github.io/archives/halo-bo-ke-da-jian-he-qian-yi/</guid><description>&lt;h2 id="halo-博客官网文档">Halo 博客官网文档
 &lt;/h2>&lt;p>&lt;a class="link" href="https://docs.halo.run/" target="_blank" rel="noopener"
->https://docs.halo.run/&lt;/a>&lt;/p></description></item><item><title>npm 安装</title><link>https://wlngo.github.io/archives/npm-an-zhuang/</link><pubDate>Thu, 28 Jul 2022 23:15:53 +0000</pubDate><guid>https://wlngo.github.io/archives/npm-an-zhuang/</guid><description>&lt;p>&lt;a class="link" href="https://www.cnblogs.com/lgx5/p/10732016.html" target="_blank" rel="noopener"
+>https://docs.halo.run/&lt;/a>&lt;/p>
+&lt;h1 id="docker-运行命令">docker 运行命令
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run -it -d --name halo -p 8090:8090 \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v ~/.halo2:/root/.halo2 -e JVM_OPTS=&amp;#34;-Xmx1024m -Xms1024m&amp;#34; \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> registry.fit2cloud.com/halo/halo:2.20 \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --spring.r2dbc.url=r2dbc:pool:mysql://192.168.123.124:3306/halo2 \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --spring.r2dbc.username=root \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --spring.r2dbc.password=password \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --spring.sql.init.platform=mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>npm 安装</title><link>https://wlngo.github.io/archives/npm-an-zhuang/</link><pubDate>Thu, 28 Jul 2022 23:15:53 +0000</pubDate><guid>https://wlngo.github.io/archives/npm-an-zhuang/</guid><description>&lt;p>&lt;a class="link" href="https://www.cnblogs.com/lgx5/p/10732016.html" target="_blank" rel="noopener"
 >https://www.cnblogs.com/lgx5/p/10732016.html&lt;/a>&lt;/p></description></item><item><title>docker 安装 kibana:8.6.0</title><link>https://wlngo.github.io/archives/docker-an-zhuang-kibana832/</link><pubDate>Thu, 28 Jul 2022 20:19:12 +0000</pubDate><guid>https://wlngo.github.io/archives/docker-an-zhuang-kibana832/</guid><description>&lt;h4 id="下载镜像">下载镜像
 &lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
