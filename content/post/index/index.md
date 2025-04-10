@@ -5,6 +5,6 @@ date = "2025-03-11"
 weight= 1
 description = "导航聚合页面"
 +++
-## [私有内网Oss](https://oss.wlngo.top:9050/)
-## [Alist](http://nfs-server:5244/)
-## [qb](http://nfs-server:8060/)
+## [私有内网Oss](https://lb.wlngo.top:9050/)
+## [Alist](https://lb.wlngo.top:5244/)
+## [qb](https://lb.wlngo.top:8060/)
