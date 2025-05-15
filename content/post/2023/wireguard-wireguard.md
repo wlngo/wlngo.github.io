@@ -34,7 +34,7 @@ docker run -d \
 wireguard-ui 初始化使用 0.5.2版本 0.6.2 无法初始化
 > --network=wireguard 
 ```
- docker run -d   -p 5000:5000   --restart=always --name wireguard-ui \
+docker run -d  --net=host  -e 'BIND_ADDRESS'='192.168.123.1:5000' --restart=always --name wireguard-ui \
 -e WGUI_MANAGE_RESTART=true -e WGUI_MANAGE_START=true --cap-add=NET_ADMIN \
 -v /mnt/nvme0n1-4/opt/wireguard-ui/db:/app/db -v /mnt/nvme0n1-4/opt/wireguard/config/wg_confs:/etc/wireguard \
 ngoduykhanh/wireguard-ui:0.6.2
