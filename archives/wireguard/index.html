@@ -47,7 +47,7 @@
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl> docker run -d   -p 5000:5000   --restart=always --name wireguard-ui \
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>docker run -d  --net=host  -e &#39;BIND_ADDRESS&#39;=&#39;192.168.123.1:5000&#39; --restart=always --name wireguard-ui \
 </span></span><span class=line><span class=cl>-e WGUI_MANAGE_RESTART=true -e WGUI_MANAGE_START=true --cap-add=NET_ADMIN \
 </span></span><span class=line><span class=cl>-v /mnt/nvme0n1-4/opt/wireguard-ui/db:/app/db -v /mnt/nvme0n1-4/opt/wireguard/config/wg_confs:/etc/wireguard \
 </span></span><span class=line><span class=cl>ngoduykhanh/wireguard-ui:0.6.2
