@@ -3354,17 +3354,15 @@ To free pagecache:&lt;/p>
 &lt;/span>&lt;span class="lnt"> 8
 &lt;/span>&lt;span class="lnt"> 9
 &lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run -d -p 9000:9000 -p 9050:9050 \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--name minio --restart=always \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e &amp;#34;MINIO_ROOT_USER=账号&amp;#34; \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e &amp;#34;MINIO_ROOT_PASSWORD=密码&amp;#34; \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e &amp;#34;MINIO_ROOT_PASSWORD=密码!&amp;#34; \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e &amp;#34;MINIO_DOMAIN&amp;#34;=wlngo.top \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/minio/data:/data \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/minio/config:/root/.minio \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-v /opt/movies/:/data/movies/ \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-e TZ=Asia/Shanghai \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> quay.io/minio/minio server \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/data --console-address &amp;#34;:9050&amp;#34;
