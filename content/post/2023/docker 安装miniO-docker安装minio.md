@@ -29,11 +29,10 @@ docker run -d -p 9000:9000 -p 9050:9050 \
 docker run -d -p 9000:9000 -p 9050:9050 \
 --name minio --restart=always \
 -e "MINIO_ROOT_USER=账号" \
--e "MINIO_ROOT_PASSWORD=密码" \
+-e "MINIO_ROOT_PASSWORD=密码!" \
 -e  "MINIO_DOMAIN"=wlngo.top \
 -v /opt/minio/data:/data \
 -v /opt/minio/config:/root/.minio \
--v /opt/movies/:/data/movies/ \
 -e TZ=Asia/Shanghai \
   quay.io/minio/minio server  \
 /data --console-address ":9050"
