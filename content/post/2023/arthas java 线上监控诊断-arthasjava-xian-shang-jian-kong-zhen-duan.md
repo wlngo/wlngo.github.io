@@ -20,7 +20,10 @@ tags:
 --cap-add=SYS_ADMIN 必须给容器根路径权限 否则无法生产cpu 火焰图
 profiler start
 
-arthas 获取spring bean
+### arthas 获取spring bean
+
+思路参考 https://github.com/alibaba/arthas/issues/482 
+
 方法一 有dubbo
 ```
 ognl '#context=@com.alibaba.dubbo.config.spring.extension.SpringExtensionFactory@contexts.iterator.next, #context.getBean("bean名字")'
