@@ -2269,8 +2269,10 @@ sudo sh -c &amp;ldquo;openssl passwd -apr1 &amp;raquo; htpasswd&amp;rdquo;
 &lt;h3 id="docker-容器参数">docker 容器参数
 &lt;/h3>&lt;p>&amp;ndash;cap-add=SYS_ADMIN 必须给容器根路径权限 否则无法生产cpu 火焰图
 profiler start&lt;/p>
-&lt;p>arthas 获取spring bean
-方法一 有dubbo&lt;/p>
+&lt;h3 id="arthas-获取spring-bean">arthas 获取spring bean
+&lt;/h3>&lt;p>思路参考 &lt;a class="link" href="https://github.com/alibaba/arthas/issues/482" target="_blank" rel="noopener"
+>https://github.com/alibaba/arthas/issues/482&lt;/a>&lt;/p>
+&lt;p>方法一 有dubbo&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
