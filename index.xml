@@ -4,89 +4,25 @@
 >Alist&lt;/a>
 &lt;/h2>&lt;h2 id="qb">&lt;a class="link" href="https://lb.wlngo.top:8060/" target="_blank" rel="noopener"
 >qb&lt;/a>
-&lt;/h2></description></item><item><title>文档</title><link>https://wlngo.github.io/archives/%E6%96%87%E6%A1%A3/</link><pubDate>Wed, 26 Feb 2025 10:46:28 +0000</pubDate><guid>https://wlngo.github.io/archives/%E6%96%87%E6%A1%A3/</guid><description>&lt;h1 id="api-文档">API 文档
-&lt;/h1>&lt;h2 id="api-端点-登录">API 端点: 登录
-&lt;/h2>&lt;h3 id="描述">描述
-&lt;/h3>&lt;p>此端点用于用户登录，通过提供手机号码和验证码进行登录。&lt;/p>
-&lt;h3 id="http-方法">HTTP 方法
-&lt;/h3>&lt;p>POST&lt;/p>
-&lt;h3 id="url">URL
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://localhost:8976/image-to-sound/api/login
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="请求头">请求头
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Content-Type: application/json
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="请求参数">请求参数
-&lt;/h3>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>名称&lt;/th>
-&lt;th>类型&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>mobile&lt;/td>
-&lt;td>String&lt;/td>
-&lt;td>用户的手机号码&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>rawCode&lt;/td>
-&lt;td>String&lt;/td>
-&lt;td>登录验证码&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h3 id="请求体">请求体
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;mobile&amp;#34;: &amp;#34;18232116813&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;rawCode&amp;#34;: &amp;#34;696081&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="curl-命令">Curl 命令
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">curl --location &amp;#39;http://localhost:8976/image-to-sound/api/login&amp;#39; \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--header &amp;#39;Content-Type: application/json&amp;#39; \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--data &amp;#39;{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;mobile&amp;#34;: &amp;#34;18232116813&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;rawCode&amp;#34;: &amp;#34;696081&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&amp;#39;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="响应">响应
-&lt;/h3>&lt;h4 id="成功响应">成功响应
-&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/h2></description></item><item><title>ios wss 断开问题</title><link>https://wlngo.github.io/archives/ios-wss-question/</link><pubDate>Wed, 26 Feb 2025 10:46:28 +0000</pubDate><guid>https://wlngo.github.io/archives/ios-wss-question/</guid><description>&lt;p>当然可以！以下是整理成Markdown格式的总结文档，详细说明如何处理ISO 15 WSS断开问题，并关闭&lt;code>permessage-deflate&lt;/code>扩展。&lt;/p>
+&lt;hr>
+&lt;h1 id="处理ios-wss断开问题并关闭-permessage-deflate">处理IOS WSS断开问题并关闭 &lt;code>permessage-deflate&lt;/code>
+&lt;/h1>&lt;h2 id="背景">背景
+&lt;/h2>&lt;p>在IOS使用WebSocket（WSS）进行通信时，有时会出现连接断开的问题。可能需要关闭&lt;code>permessage-deflate&lt;/code>扩展以避免兼容性问题。本文档将详细介绍如何在Nginx和Spring Boot应用中关闭&lt;code>permessage-deflate&lt;/code>扩展，以解决WSS断开问题。&lt;/p>
+&lt;h2 id="解决方案">解决方案
+&lt;/h2>&lt;h3 id="1-关闭-permessage-deflate-扩展">1. 关闭 &lt;code>permessage-deflate&lt;/code> 扩展
+&lt;/h3>&lt;p>&lt;code>permessage-deflate&lt;/code> 是一种WebSocket压缩扩展，用于减少传输的数据量。但在某些情况下，它可能导致兼容性问题，特别是在特定的标准（如ISO 15）中。因此，我们需要关闭此扩展。&lt;/p>
+&lt;h4 id="11-在-nginx-中关闭-permessage-deflate">1.1 在 Nginx 中关闭 &lt;code>permessage-deflate&lt;/code>
+&lt;/h4>&lt;p>在Nginx配置文件中，可以通过设置&lt;code>proxy_set_header&lt;/code>来控制WebSocket扩展。具体步骤如下：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>编辑Nginx配置文件&lt;/strong>：
+通常位于 &lt;code>/etc/nginx/nginx.conf&lt;/code> 或 &lt;code>/etc/nginx/conf.d/default.conf&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>添加或修改以下配置&lt;/strong>：
+在 &lt;code>location&lt;/code> 块中添加或修改 &lt;code>proxy_set_header&lt;/code> 指令，以禁用 &lt;code>permessage-deflate&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
 &lt;/span>&lt;span class="lnt"> 2
@@ -103,97 +39,73 @@
 &lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;span class="lnt">14
 &lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;code&amp;#34;: 200,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;data&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;accessTokenRes&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;accessToken&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA1MzkzNzMsImlzcyI6ImF1dGgwIiwic3ViIjoiMTgyMzIxMTY4MTMifQ.zwwKJ3_W_Xpnl3xoUfkYVyvVP9qODT6CmjyW4e1GYZA&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;expire&amp;#34;: 3600
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;refreshTokenRes&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;refreshToken&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg4MzI4MDYsImlzcyI6ImF1dGgwIiwic3ViIjoiMTgyMzIxMTY4MTMifQ.AA90_CF2lpP9M_z7r1PVG1TOaOloOwUmBoraPbrIwVQ&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;expire&amp;#34;: 2592000
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;msg&amp;#34;: &amp;#34;&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;identifier&amp;#34;: true
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">example.com&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/path/to/certificate.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/path/to/privatekey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">/ws&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://backend_server&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">&amp;#34;upgrade&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#重点
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Sec-WebSocket-Extensions&lt;/span> &lt;span class="s">&amp;#39;client_max_window_bits=0&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h4 id="错误响应">错误响应
-&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/div>&lt;p>注意：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>Sec-WebSocket-Extensions 'client_max_window_bits=0'&lt;/code> 表示禁用 &lt;code>permessage-deflate&lt;/code>。&lt;/li>
+&lt;li>如果需要完全禁用所有扩展，可以设置为空字符串：&lt;code>Sec-WebSocket-Extensions ''&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>重新加载Nginx配置&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;code&amp;#34;: 400,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;msg&amp;#34;: &amp;#34;Invalid mobile number or raw code&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;identifier&amp;#34;: false
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">sudo nginx -s reload
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="示例请求">示例请求
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h4 id="12-在-spring-boot-中关闭-permessage-deflate">1.2 在 Spring Boot 中关闭 &lt;code>permessage-deflate&lt;/code>
+&lt;/h4>&lt;p>在Spring Boot应用中，可以通过tomcat系统属性来禁用内置的WebSocket扩展。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>令行参数设置，可以在启动Spring Boot应用时添加以下参数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">curl --location &amp;#39;http://localhost:8976/image-to-sound/api/login&amp;#39; \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--header &amp;#39;Content-Type: application/json&amp;#39; \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--data &amp;#39;{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;mobile&amp;#34;: &amp;#34;18232116813&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;rawCode&amp;#34;: &amp;#34;696081&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&amp;#39;
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">java -Dorg.apache.tomcat.websocket.DISABLE_BUILTIN_EXTENSIONS&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> -jar your-application.jar
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="示例响应">示例响应
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">{
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;code&amp;#34;: 200,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;data&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;accessTokenRes&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;accessToken&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA1MzkzNzMsImlzcyI6ImF1dGgwIiwic3ViIjoiMTgyMzIxMTY4MTMifQ.zwwKJ3_W_Xpnl3xoUfkYVyvVP9qODT6CmjyW4e1GYZA&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;expire&amp;#34;: 3600
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;refreshTokenRes&amp;#34;: {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;refreshToken&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg4MzI4MDYsImlzcyI6ImF1dGgwIiwic3ViIjoiMTgyMzIxMTY4MTMifQ.AA90_CF2lpP9M_z7r1PVG1TOaOloOwUmBoraPbrIwVQ&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;expire&amp;#34;: 2592000
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> },
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;msg&amp;#34;: &amp;#34;&amp;#34;,
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;identifier&amp;#34;: true
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description></item><item><title>openwrt ipv6</title><link>https://wlngo.github.io/archives/openwrtipv6/</link><pubDate>Wed, 05 Jun 2024 10:06:14 +0000</pubDate><guid>https://wlngo.github.io/archives/openwrtipv6/</guid><description>&lt;ol>
 &lt;li>取消ipv6&lt;/li>
