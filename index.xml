@@ -1,10 +1,447 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>wlngo blog</title><link>https://wlngo.github.io/</link><description>Recent content on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Tue, 11 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>导航</title><link>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</link><pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</guid><description>&lt;h2 id="私有内网oss">&lt;a class="link" href="https://lb.wlngo.top:9050/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>wlngo blog</title><link>https://wlngo.github.io/</link><description>Recent content on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Wed, 18 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>导航</title><link>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</link><pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</guid><description>&lt;h2 id="私有内网oss">&lt;a class="link" href="https://lb.wlngo.top:9050/" target="_blank" rel="noopener"
 >私有内网Oss&lt;/a>
 &lt;/h2>&lt;h2 id="alist">&lt;a class="link" href="https://lb.wlngo.top:5244/" target="_blank" rel="noopener"
 >Alist&lt;/a>
 &lt;/h2>&lt;h2 id="qb">&lt;a class="link" href="https://lb.wlngo.top:8060/" target="_blank" rel="noopener"
 >qb&lt;/a>
-&lt;/h2></description></item><item><title>ios wss 断开问题</title><link>https://wlngo.github.io/archives/ios-wss-question/</link><pubDate>Wed, 26 Feb 2025 10:46:28 +0000</pubDate><guid>https://wlngo.github.io/archives/ios-wss-question/</guid><description>&lt;p>当然可以！以下是整理成Markdown格式的总结文档，详细说明如何处理ISO 15 WSS断开问题，并关闭&lt;code>permessage-deflate&lt;/code>扩展。&lt;/p>
+&lt;/h2></description></item><item><title>code-server安装</title><link>https://wlngo.github.io/archives/code-server/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/code-server/</guid><description>&lt;h1 id="-code-server安装">☕ code-server安装
+&lt;/h1></description></item><item><title>Java使用ffmpeg</title><link>https://wlngo.github.io/archives/java-ffmpeg/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/java-ffmpeg/</guid><description>&lt;h1 id="-java-使用-ffmpeg-实战手册">☕ Java 使用 FFmpeg 实战手册
+&lt;/h1>&lt;p>如果你已经安装了 FFmpeg，可以直接通过 Java 的 &lt;code>ProcessBuilder&lt;/code> 或 &lt;code>Runtime.exec()&lt;/code> 来执行 FFmpeg 命令，实现音视频的转换、截图、压缩、录制等功能，无需引入任何第三方依赖。&lt;/p>
+&lt;hr>
+&lt;h2 id="-前提条件">✅ 前提条件
+&lt;/h2>&lt;ul>
+&lt;li>系统中已安装 FFmpeg 并配置在环境变量中（&lt;code>ffmpeg&lt;/code> 可在终端执行）&lt;/li>
+&lt;li>Java 版本 8+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-1-java-调用-ffmpeg-转换音频格式如-pcm-24000--pcm-16000">🎵 1. Java 调用 FFmpeg 转换音频格式（如 pcm 24000 → pcm 16000）
+&lt;/h2>&lt;pre>&lt;code> ProcessBuilder builder = new ProcessBuilder(
+&amp;quot;ffmpeg&amp;quot;,
+&amp;quot;-loglevel&amp;quot;, &amp;quot;error&amp;quot;, // 安静输出
+&amp;quot;-f&amp;quot;, &amp;quot;f32le&amp;quot;,
+&amp;quot;-ar&amp;quot;, &amp;quot;24000&amp;quot;,
+&amp;quot;-ac&amp;quot;, &amp;quot;1&amp;quot;,
+&amp;quot;-i&amp;quot;, &amp;quot;pipe:0&amp;quot;, // 从 stdin 读入
+&amp;quot;-f&amp;quot;, &amp;quot;s16le&amp;quot;,
+&amp;quot;-ar&amp;quot;, &amp;quot;16000&amp;quot;,
+&amp;quot;-ac&amp;quot;, &amp;quot;1&amp;quot;,
+&amp;quot;pipe:1&amp;quot; // 输出到 stdout
+);
+Process process = builder.start();
+// 写入原始 PCM f32le 数据
+try (OutputStream stdin = process.getOutputStream()) {
+stdin.write(bytes);
+stdin.flush();
+}
+// 读取输出的 PCM s16le 数据
+ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+try (InputStream stdout = process.getInputStream()) {
+byte[] buffer = new byte[4096];
+int len;
+while ((len = stdout.read(buffer)) != -1) {
+outputBuffer.write(buffer, 0, len);
+}
+}
+// 等待 FFmpeg 执行完成
+int exitCode = process.waitFor();
+if (exitCode != 0) {
+throw new RuntimeException(&amp;quot;FFmpeg process exited with code &amp;quot; + exitCode);
+}
+&lt;/code>&lt;/pre>
+&lt;h2 id="-常用-ffmpeg-参数速查">📦 常用 FFmpeg 参数速查
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>含义&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>-i input&lt;/code>&lt;/td>
+&lt;td>输入文件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-f fmt&lt;/code>&lt;/td>
+&lt;td>指定格式（如 &lt;code>f32le&lt;/code>, &lt;code>s16le&lt;/code>, &lt;code>mp4&lt;/code> 等）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-ar rate&lt;/code>&lt;/td>
+&lt;td>音频采样率&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-ac channels&lt;/code>&lt;/td>
+&lt;td>声道数（1 = mono, 2 = stereo）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-b:a&lt;/code>&lt;/td>
+&lt;td>音频比特率（如 128k）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-vf&lt;/code>&lt;/td>
+&lt;td>视频滤镜，如 &lt;code>fps=1&lt;/code> 截图&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-t seconds&lt;/code>&lt;/td>
+&lt;td>限制录制/输出时长&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>pipe:0 / pipe:1&lt;/code>&lt;/td>
+&lt;td>读取 stdin / 写入 stdout&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="-建议工具与调试方式">🧪 建议工具与调试方式
+&lt;/h2>&lt;ul>
+&lt;li>&lt;code>ffmpeg -h&lt;/code> 查看帮助&lt;/li>
+&lt;li>使用 &lt;code>builder.redirectErrorStream(true)&lt;/code> 合并错误输出便于调试&lt;/li>
+&lt;li>在本地命令行先试通 FFmpeg 命令，再用 Java 调用&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-结语">📘 结语
+&lt;/h2>&lt;p>Java 通过 &lt;code>ProcessBuilder&lt;/code> 调用 FFmpeg 提供了轻量、灵活的音视频处理方案。适用于音频格式转换、实时推流、帧截取、录屏等多种场景，无需引入复杂依赖。如果需要更复杂的流式处理，可进一步使用 JavaCV 或 FFmpeg CLI 封装库。&lt;/p>
+&lt;h2 id="-第二章使用-javacv-操作-ffmpeg适合复杂音视频任务-ffmpeg-转音频有杂音原因未知-目前运用最多的是视频转码">🎬 第二章：使用 JavaCV 操作 FFmpeg（适合复杂音视频任务 ffmpeg 转音频有杂音原因未知 目前运用最多的是视频转码）
+&lt;/h2>&lt;p>&lt;a class="link" href="https://github.com/bytedeco/javacv" target="_blank" rel="noopener"
+>JavaCV&lt;/a> 是对 FFmpeg、OpenCV 等原生库的 Java 封装，适合进行复杂的视频帧处理、实时音频流处理等任务。&lt;/p>
+&lt;h3 id="-添加依赖maven">🧰 添加依赖（Maven）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;groupId&amp;gt;&lt;/span>org.bytedeco&lt;span class="nt">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;artifactId&amp;gt;&lt;/span>javacv-platform&lt;span class="nt">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;version&amp;gt;&lt;/span>1.5.10&lt;span class="nt">&amp;lt;/version&amp;gt;&lt;/span> &lt;span class="c">&amp;lt;!-- 可替换为最新版本 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="-示例将-pcm-音频流转为-mp3-文件">🎧 示例：将 PCM 音频流转为 MP3 文件
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.bytedeco.javacv.*&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.bytedeco.ffmpeg.global.avcodec&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">PcmToMp3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">throws&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Exception&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">try&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">FFmpegFrameGrabber&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">FFmpegFrameGrabber&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;input.pcm&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">FFmpegFrameRecorder&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">FFmpegFrameRecorder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;output.mp3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setFormat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;f32le&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 原始 PCM 格式&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setSampleRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">24000&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAudioChannels&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAudioBitrate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">128000&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">start&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setFormat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;mp3&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAudioCodec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">avcodec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">AV_CODEC_ID_MP3&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setSampleRate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">24000&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAudioChannels&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">start&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">Frame&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">frame&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">frame&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">grabFrame&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">!=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">record&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">frame&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">recorder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">stop&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">grabber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">stop&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="-使用建议">📌 使用建议
+&lt;/h2>&lt;ul>
+&lt;li>JavaCV 非常适合需要对帧进行逐帧处理的场景&lt;/li>
+&lt;li>不适用于简单的音频格式转换（用命令行更轻量）&lt;/li>
+&lt;li>可配合 Java NIO 管道、Netty 实现音视频实时处理&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-更多资源">📚 更多资源
+&lt;/h2>&lt;ul>
+&lt;li>JavaCV 文档：https://bytedeco.org/javacv/&lt;/li>
+&lt;li>示例项目：https://github.com/bytedeco/javacv-examples&lt;/li>
+&lt;li>JavaCV 支持的 FFmpeg API 封装参考：&lt;code>org.bytedeco.ffmpeg.*&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;hr></description></item><item><title>websocket之SockJS</title><link>https://wlngo.github.io/archives/websocket-SockJs/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/websocket-SockJs/</guid><description>&lt;h1 id="-sockjs-使用手册">📡 SockJS 使用手册
+&lt;/h1>&lt;p>SockJS 是一个浏览器和服务器都支持的 JavaScript 库，用于在 WebSocket 不可用时提供类似 WebSocket 的双向通信能力。它自动回退到兼容传输方式（如 AJAX 长轮询、iframe 等），适用于构建兼容性强的实时应用系统。&lt;/p>
+&lt;hr>
+&lt;h2 id="-核心特点">🧩 核心特点
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>自动回退&lt;/strong>：在浏览器或网络不支持 WebSocket 时自动退回其他通信方式&lt;/li>
+&lt;li>&lt;strong>浏览器兼容性强&lt;/strong>：支持 IE 8 及以上浏览器&lt;/li>
+&lt;li>&lt;strong>标准化接口&lt;/strong>：与原生 WebSocket 类似的 API，如 &lt;code>onopen&lt;/code>、&lt;code>onmessage&lt;/code>、&lt;code>onclose&lt;/code>&lt;/li>
+&lt;li>&lt;strong>服务器框架集成良好&lt;/strong>：与 Spring Boot 等现代后端框架良好集成&lt;/li>
+&lt;li>&lt;strong>跨域支持友好&lt;/strong>：可配置 CORS，支持跨源通信&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-使用示例">🧪 使用示例
+&lt;/h2>&lt;h3 id="客户端javascript">客户端（JavaScript）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">script&lt;/span> &lt;span class="n">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="n">sock&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">SockJS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;http://localhost:8080/ws&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sock&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">onopen&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">console&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;连接已打开&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sock&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello Server&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sock&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">onmessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">console&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;收到消息:&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sock&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">onclose&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">console&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;连接已关闭&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="服务端spring-boot-示例">服务端（Spring Boot 示例）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@Configuration&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@EnableWebSocket&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@RequiredArgsConstructor&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">WebSocketConfig&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">implements&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">WebSocketConfigurer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">final&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">HttpAuthHandler&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">httpAuthHandler&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">final&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">WsJwtInterceptor&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">wsJwt&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Override&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">registerWebSocketHandlers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">WebSocketHandlerRegistry&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">registry&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">registry&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">addHandler&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">httpAuthHandler&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;/ws&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">addInterceptors&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">wsJwt&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAllowedOrigins&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="na">withSockJS&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="-sockjs-支持的多种传输方式">🚚 SockJS 支持的多种传输方式
+&lt;/h2>&lt;p>SockJS 会在以下传输方式中自动选择一种最适合的方式：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>顺序&lt;/th>
+&lt;th>传输方式&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;th>是否支持双向&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>WebSocket&lt;/td>
+&lt;td>首选方式，基于 TCP 的真正全双工通信&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>XHR Streaming&lt;/td>
+&lt;td>长连接持续推送数据&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>XHR Polling&lt;/td>
+&lt;td>短轮询模拟实时通信&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>4&lt;/td>
+&lt;td>EventSource&lt;/td>
+&lt;td>HTML5 单向推送，兼容性差&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>5&lt;/td>
+&lt;td>iframe Streaming&lt;/td>
+&lt;td>利用隐藏 iframe 推送 script 内容&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>6&lt;/td>
+&lt;td>iframe Polling&lt;/td>
+&lt;td>最低效的回退方式&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>选择优先级顺序：&lt;/strong> &lt;code>WebSocket &amp;gt; XHR-streaming &amp;gt; XHR-polling &amp;gt; EventSource &amp;gt; iframe-streaming &amp;gt; iframe-polling&lt;/code>&lt;/p>
+&lt;hr>
+&lt;h2 id="-sockjs-vs-原生-websocket">🧠 SockJS vs 原生 WebSocket
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>特性&lt;/th>
+&lt;th>SockJS&lt;/th>
+&lt;th>WebSocket 原生&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>支持旧浏览器&lt;/td>
+&lt;td>✅ 是&lt;/td>
+&lt;td>❌ 否&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>自动回退机制&lt;/td>
+&lt;td>✅ 支持&lt;/td>
+&lt;td>❌ 无&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>与 STOMP 协议集成&lt;/td>
+&lt;td>✅ 良好&lt;/td>
+&lt;td>❌ 手动实现&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>性能（支持 WS 时）&lt;/td>
+&lt;td>🚀 快（几乎等同原生）&lt;/td>
+&lt;td>🚀 非常快&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>跨域与 HTTP 协调&lt;/td>
+&lt;td>✅ 更易管理&lt;/td>
+&lt;td>✅ 支持&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="-使用场景">✅ 使用场景
+&lt;/h2>&lt;ul>
+&lt;li>移动设备或旧浏览器环境&lt;/li>
+&lt;li>企业内网中使用 WebSocket 被屏蔽&lt;/li>
+&lt;li>构建如聊天室、实时通知、在线监控等系统&lt;/li>
+&lt;li>与 Spring Boot + STOMP 构建推送系统&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-curl-请求-sockjs">🔍 Curl 请求 SockJS
+&lt;/h2>&lt;p>虽然 SockJS 是为浏览器设计的，但你可以用 &lt;code>curl&lt;/code> 模拟部分通信步骤（如 xhr_send、xhr 接收等）&lt;/p>
+&lt;h3 id="获取服务信息">获取服务信息
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl http://localhost:8080/ws/info
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="发送消息post">发送消息（POST）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST -H &lt;span class="s2">&amp;#34;Content-Type: text/plain&amp;#34;&lt;/span> --data &lt;span class="s1">&amp;#39;&amp;#34;Hello from curl!&amp;#34;&amp;#39;&lt;/span> http://localhost:8080/ws/123/abc123/xhr_send
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="拉取消息get">拉取消息（GET）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl http://localhost:8080/ws/123/abc123/xhr
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>⚠ 注意：SockJS 的连接 ID 和 session 是动态生成的，使用 curl 完整模拟需要提前抓包或实现 session 管理。建议使用 &lt;code>websocat&lt;/code> 工具或浏览器调试。&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="-推荐工具">🔧 推荐工具
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/sockjs/sockjs-client" target="_blank" rel="noopener"
+>sockjs-client (GitHub)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/vi/websocat" target="_blank" rel="noopener"
+>&lt;code>websocat&lt;/code>&lt;/a>：命令行 WebSocket 工具&lt;/li>
+&lt;li>Fiddler / Wireshark：抓包工具&lt;/li>
+&lt;li>Postman 插件：测试 WebSocket API&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-结语">📘 结语
+&lt;/h2>&lt;p>SockJS 提供了良好的兼容性、容错能力和浏览器支持，是构建生产级实时通信系统时值得考虑的解决方案，特别适用于需要兼容旧环境或复杂网络限制的场景。
+降级后不支持 二进制消息仅支持文本消息。&lt;/p></description></item><item><title>ios wss 断开问题</title><link>https://wlngo.github.io/archives/ios-wss-question/</link><pubDate>Wed, 26 Feb 2025 10:46:28 +0000</pubDate><guid>https://wlngo.github.io/archives/ios-wss-question/</guid><description>&lt;p>当然可以！以下是整理成Markdown格式的总结文档，详细说明如何处理ISO 15 WSS断开问题，并关闭&lt;code>permessage-deflate&lt;/code>扩展。&lt;/p>
 &lt;hr>
 &lt;h1 id="处理ios-wss断开问题并关闭-permessage-deflate">处理IOS WSS断开问题并关闭 &lt;code>permessage-deflate&lt;/code>
 &lt;/h1>&lt;h2 id="背景">背景
