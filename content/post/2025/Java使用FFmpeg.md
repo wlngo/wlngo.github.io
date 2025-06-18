@@ -1,7 +1,7 @@
 ---
-title: Java使用FFmpeg.md
-date: 2025-06-18 17:46:28.54
-updated: 2025-06-18 17:02:13.916
+title: Java使用ffmpeg
+date: 2025-06-18
+updated: 2025-06-18
 url: /archives/java-ffmpeg
 categories:
 tags:
