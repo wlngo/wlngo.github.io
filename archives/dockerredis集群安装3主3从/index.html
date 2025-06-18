@@ -1,0 +1,388 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="1主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-1 --network=elknetwork --restart=always \\ -p 6429:6429 -p 16429:16429 \\ -v /opt/redis-cluster/master-1/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-1/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-1/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 2主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-2 --network=elknetwork --restart=always \\ -p 6449:6449 -p 16449:16449 \\ -v /opt/redis-cluster/master-2/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-2/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-2/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 3主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-3 --network=elknetwork --restart=always \\ -p 6469:6469 -p 16469:16469 \\ -v /opt/redis-cluster/master-3/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-3/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-3/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 从1\n"><title>docker redis 集群安装3主3从</title><link rel=canonical href=https://wlngo.github.io/archives/dockerredis%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%853%E4%B8%BB3%E4%BB%8E/><link rel=stylesheet href=/scss/style.min.946cca6c6259ef94ac55abfae7c7bf3291ea3ed5eea17ef77500b257217c6710.css><meta property='og:title' content="docker redis 集群安装3主3从"><meta property='og:description' content="1主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-1 --network=elknetwork --restart=always \\ -p 6429:6429 -p 16429:16429 \\ -v /opt/redis-cluster/master-1/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-1/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-1/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 2主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-2 --network=elknetwork --restart=always \\ -p 6449:6449 -p 16449:16449 \\ -v /opt/redis-cluster/master-2/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-2/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-2/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 3主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-3 --network=elknetwork --restart=always \\ -p 6469:6469 -p 16469:16469 \\ -v /opt/redis-cluster/master-3/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-3/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-3/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 从1\n"><meta property='og:url' content='https://wlngo.github.io/archives/dockerredis%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%853%E4%B8%BB3%E4%BB%8E/'><meta property='og:site_name' content='wlngo blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2023-07-11T09:25:06+00:00'><meta property='article:modified_time' content='2023-07-11T09:25:06+00:00'><meta name=twitter:title content="docker redis 集群安装3主3从"><meta name=twitter:description content="1主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-1 --network=elknetwork --restart=always \\ -p 6429:6429 -p 16429:16429 \\ -v /opt/redis-cluster/master-1/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-1/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-1/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 2主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-2 --network=elknetwork --restart=always \\ -p 6449:6449 -p 16449:16449 \\ -v /opt/redis-cluster/master-2/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-2/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-2/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 3主\n1 2 3 4 5 6 7 8 9 docker run -d --name redis-master-3 --network=elknetwork --restart=always \\ -p 6469:6469 -p 16469:16469 \\ -v /opt/redis-cluster/master-3/log:/var/log/redis/ \\ -v /opt/redis-cluster/master-3/conf:/usr/local/etc/redis/ \\ -v /opt/redis-cluster/master-3/data/:/var/lib/redis/ \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ redis \\ redis-server /usr/local/etc/redis/redis.conf 从1\n"><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_67b8e70f23e47322.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>wlngo blog</a></h1><h2 class=site-description>欢迎来到 Wlngo 博客！这里是探索技术、分享思考与记录成长的地方。</h2></div></header><ol class=menu-social><li><a href=https://github.com/wlngo target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>家</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E9%93%BE%E6%8E%A5/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>链接</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/archives/dockerredis%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%853%E4%B8%BB3%E4%BB%8E/>docker redis 集群安装3主3从</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jul 11, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 4 分钟</time></div></footer></div></header><section class=article-content><p>1主</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>master</span><span class=o>-</span><span class=mi>1</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6429</span><span class=p>:</span><span class=mi>6429</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16429</span><span class=p>:</span><span class=mi>16429</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>2主</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>master</span><span class=o>-</span><span class=mi>2</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6449</span><span class=p>:</span><span class=mi>6449</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16449</span><span class=p>:</span><span class=mi>16449</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>3主</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>master</span><span class=o>-</span><span class=mi>3</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6469</span><span class=p>:</span><span class=mi>6469</span>   <span class=o>-</span><span class=n>p</span> <span class=mi>16469</span><span class=p>:</span><span class=mi>16469</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>master</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>从1</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>slave</span><span class=o>-</span><span class=mi>1</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6439</span><span class=p>:</span><span class=mi>6439</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16439</span><span class=p>:</span><span class=mi>16439</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>从2</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>slave</span><span class=o>-</span><span class=mi>2</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6459</span><span class=p>:</span><span class=mi>6459</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16459</span><span class=p>:</span><span class=mi>16459</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>2</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>从3</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>slave</span><span class=o>-</span><span class=mi>3</span> <span class=o>--</span><span class=n>network</span><span class=o>=</span><span class=n>elknetwork</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>p</span> <span class=mi>6479</span><span class=p>:</span><span class=mi>6479</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16479</span><span class=p>:</span><span class=mi>16479</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>slave</span><span class=o>-</span><span class=mi>3</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>默认参数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>--</span><span class=n>name</span> <span class=n>redis</span><span class=o>-</span><span class=n>cluster</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> <span class=o>-</span><span class=n>p</span> <span class=mi>6379</span><span class=p>:</span><span class=mi>6379</span>  <span class=o>-</span><span class=n>p</span> <span class=mi>16379</span><span class=p>:</span><span class=mi>16379</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=n>TZ</span><span class=o>=</span><span class=n>Asia</span><span class=o>/</span><span class=n>Shanghai</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=nb>log</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=nb>log</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>conf</span><span class=p>:</span><span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>redis</span><span class=o>-</span><span class=n>cluster</span><span class=o>/</span><span class=n>data</span><span class=o>/</span><span class=p>:</span><span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>lib</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=n>redis</span><span class=p>:</span><span class=mf>7.0</span> <span class=n>redis</span><span class=o>-</span><span class=n>server</span> <span class=o>/</span><span class=n>usr</span><span class=o>/</span><span class=n>local</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>redis</span><span class=o>/</span><span class=n>redis</span><span class=o>.</span><span class=n>conf</span>
+</span></span></code></pre></td></tr></table></div></div><p>配置文件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>#docker 启动不开启守护进程  物理机开启
+</span></span><span class=line><span class=cl>daemonize no
+</span></span><span class=line><span class=cl>#开启集群模式
+</span></span><span class=line><span class=cl>cluster-enabled yes
+</span></span><span class=line><span class=cl>cluster-announce-ip 192.168.123.210
+</span></span><span class=line><span class=cl>cluster-announce-port 6379
+</span></span><span class=line><span class=cl>#集群通讯端口
+</span></span><span class=line><span class=cl>cluster-announce-bus-port 16379
+</span></span></code></pre></td></tr></table></div></div><p>规划和集群</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>cluster nodes 查看集群信息	
+</span></span><span class=line><span class=cl>cluster replicate 映射主节点
+</span></span><span class=line><span class=cl>主
+</span></span><span class=line><span class=cl>192.168.123.117 6379
+</span></span><span class=line><span class=cl>192.168.123.196 6379
+</span></span><span class=line><span class=cl>192.168.123.139 6379
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>从
+</span></span><span class=line><span class=cl>192.168.123.221 6379
+</span></span><span class=line><span class=cl>192.168.123.176 6379
+</span></span><span class=line><span class=cl>192.168.123.242 6379
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>建立联系
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.117 -p 6379 -a 密码  cluster replicate  主节点
+</span></span><span class=line><span class=cl>cluster meet 192.168.123.196 6379
+</span></span><span class=line><span class=cl>cluster meet 192.168.123.139 6379
+</span></span><span class=line><span class=cl>cluster meet 192.168.123.221 6379
+</span></span><span class=line><span class=cl>cluster meet 192.168.123.176 6379
+</span></span><span class=line><span class=cl>cluster meet 192.168.123.242 6379
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>映射主节点
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.221 -p 6379 -a 密码  cluster replicate  主节点
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.176 -p 6379 -a 密码  cluster replicate 主节点
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.242 -p 6379 -a 密码  cluster replicate 主节点
+</span></span><span class=line><span class=cl>主节点分配哈希槽
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.117 -p 6379 -a 密码  cluster addslots {0..5461}
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.196 -p 6379 -a 密码  cluster addslots {5462..10922}
+</span></span><span class=line><span class=cl>redis-cli -h 192.168.123.139 -p 6379 -a 密码  cluster addslots {10923..16383}
+</span></span></code></pre></td></tr></table></div></div><p>Envoy Proxy 用于代理redis 集群
+envoy.yaml</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>static_resources</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>listeners</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=o>-</span> <span class=n>name</span><span class=p>:</span> <span class=n>redis_listener</span>
+</span></span><span class=line><span class=cl>    <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>address</span><span class=p>:</span> <span class=mf>0.0</span><span class=o>.</span><span class=mf>0.0</span>
+</span></span><span class=line><span class=cl>        <span class=n>port_value</span><span class=p>:</span> <span class=mi>6480</span>
+</span></span><span class=line><span class=cl>    <span class=n>filter_chains</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=o>-</span> <span class=n>filters</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=o>-</span> <span class=n>name</span><span class=p>:</span> <span class=n>envoy</span><span class=o>.</span><span class=n>filters</span><span class=o>.</span><span class=n>network</span><span class=o>.</span><span class=n>redis_proxy</span>
+</span></span><span class=line><span class=cl>        <span class=n>typed_config</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;@type&#34;</span><span class=p>:</span> <span class=n>type</span><span class=o>.</span><span class=n>googleapis</span><span class=o>.</span><span class=n>com</span><span class=o>/</span><span class=n>envoy</span><span class=o>.</span><span class=n>extensions</span><span class=o>.</span><span class=n>filters</span><span class=o>.</span><span class=n>network</span><span class=o>.</span><span class=n>redis_proxy</span><span class=o>.</span><span class=n>v3</span><span class=o>.</span><span class=n>RedisProxy</span>
+</span></span><span class=line><span class=cl>          <span class=n>stat_prefix</span><span class=p>:</span> <span class=n>egress_redis</span>
+</span></span><span class=line><span class=cl>          <span class=n>settings</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>op_timeout</span><span class=p>:</span> <span class=mi>5</span><span class=n>s</span>
+</span></span><span class=line><span class=cl>          <span class=n>prefix_routes</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>catch_all_route</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>cluster</span><span class=p>:</span> <span class=n>redis_cluster</span>
+</span></span><span class=line><span class=cl>          <span class=n>downstream_auth_passwords</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=o>-</span> <span class=n>inline_string</span><span class=p>:</span> <span class=s2>&#34;密码&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=n>clusters</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=o>-</span> <span class=n>name</span><span class=p>:</span> <span class=n>redis_cluster</span>
+</span></span><span class=line><span class=cl>    <span class=n>cluster_type</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>name</span><span class=p>:</span> <span class=n>envoy</span><span class=o>.</span><span class=n>clusters</span><span class=o>.</span><span class=n>redis</span>
+</span></span><span class=line><span class=cl>      <span class=n>typed_config</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;@type&#34;</span><span class=p>:</span> <span class=n>type</span><span class=o>.</span><span class=n>googleapis</span><span class=o>.</span><span class=n>com</span><span class=o>/</span><span class=n>google</span><span class=o>.</span><span class=n>protobuf</span><span class=o>.</span><span class=n>Struct</span>
+</span></span><span class=line><span class=cl>        <span class=n>value</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>          <span class=n>cluster_refresh_rate</span><span class=p>:</span> <span class=mi>10</span><span class=n>s</span>
+</span></span><span class=line><span class=cl>          <span class=n>cluster_refresh_timeout</span><span class=p>:</span> <span class=mi>4</span><span class=n>s</span>
+</span></span><span class=line><span class=cl>    <span class=n>connect_timeout</span><span class=p>:</span> <span class=mi>4</span><span class=n>s</span>
+</span></span><span class=line><span class=cl>    <span class=n>dns_lookup_family</span><span class=p>:</span> <span class=n>V4_ONLY</span>
+</span></span><span class=line><span class=cl>    <span class=n>lb_policy</span><span class=p>:</span> <span class=n>CLUSTER_PROVIDED</span>
+</span></span><span class=line><span class=cl>    <span class=n>load_assignment</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>cluster_name</span><span class=p>:</span> <span class=n>redis_cluster</span>
+</span></span><span class=line><span class=cl>      <span class=n>endpoints</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>lb_endpoints</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6429</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6439</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6449</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6459</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6469</span>
+</span></span><span class=line><span class=cl>        <span class=o>-</span> <span class=n>endpoint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>              <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>address</span><span class=p>:</span> <span class=mf>192.168</span><span class=o>.</span><span class=mf>123.210</span> 
+</span></span><span class=line><span class=cl>                <span class=n>port_value</span><span class=p>:</span> <span class=mi>6479</span>     
+</span></span><span class=line><span class=cl>    <span class=n>typed_extension_protocol_options</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>envoy</span><span class=o>.</span><span class=n>filters</span><span class=o>.</span><span class=n>network</span><span class=o>.</span><span class=n>redis_proxy</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;@type&#34;</span><span class=p>:</span> <span class=n>type</span><span class=o>.</span><span class=n>googleapis</span><span class=o>.</span><span class=n>com</span><span class=o>/</span><span class=n>google</span><span class=o>.</span><span class=n>protobuf</span><span class=o>.</span><span class=n>Struct</span>
+</span></span><span class=line><span class=cl>        <span class=n>value</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>          <span class=n>auth_password</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>inline_string</span><span class=p>:</span> <span class=s2>&#34;密码&#34;</span>                   
+</span></span><span class=line><span class=cl><span class=n>admin</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>access_log_path</span><span class=p>:</span> <span class=s2>&#34;/opt/envoy/log/access.log&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=n>address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>socket_address</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>address</span><span class=p>:</span> <span class=mf>0.0</span><span class=o>.</span><span class=mf>0.0</span>
+</span></span><span class=line><span class=cl>      <span class=n>port_value</span><span class=p>:</span> <span class=mi>6490</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>docker run -d --name envoy --network=elknetwork --restart=always \
+</span></span><span class=line><span class=cl>-p 6480:6480 -p 6490:6490 \
+</span></span><span class=line><span class=cl>-v /opt/envoy/conf/envoy.yaml:/etc/envoy/envoy.yaml \
+</span></span><span class=line><span class=cl>-v /opt/envoy/log:/opt/envoy/log \
+</span></span><span class=line><span class=cl>-v /etc/localtime:/etc/localtime \
+</span></span><span class=line><span class=cl>envoyproxy/envoy:v1.26-latest -c  /etc/envoy/envoy.yaml --service-cluster proxy --log-level info
+</span></span></code></pre></td></tr></table></div></div><p>docker run -d &ndash;name twemproxy &ndash;network=elknetwork &ndash;restart=always<br>-p 6480:6480<br>-v /etc/nutcracker.conf:/opt/twemproxy/conf/nutcracker.conf<br>malexer/twemproxy</p></section><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 wlngo</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.bunny.net/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

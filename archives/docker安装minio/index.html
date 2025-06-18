@@ -1,0 +1,264 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='启动 1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_SERVER_URL=https://wlngo.top:9000" \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码" \\ -e "MINIO_BROWSER_REDIRECT_URL=https://wlngo.top:9050" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /var/opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ quay.io/minio/minio server \\ /data --console-address ":9050" 1 2 3 4 5 6 7 8 9 10 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码!" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ quay.io/minio/minio server \\ /data --console-address ":9050" nginx\n'><title>docker 安装miniO</title><link rel=canonical href=https://wlngo.github.io/archives/docker%E5%AE%89%E8%A3%85minio/><link rel=stylesheet href=/scss/style.min.946cca6c6259ef94ac55abfae7c7bf3291ea3ed5eea17ef77500b257217c6710.css><meta property='og:title' content="docker 安装miniO"><meta property='og:description' content='启动 1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_SERVER_URL=https://wlngo.top:9000" \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码" \\ -e "MINIO_BROWSER_REDIRECT_URL=https://wlngo.top:9050" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /var/opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ quay.io/minio/minio server \\ /data --console-address ":9050" 1 2 3 4 5 6 7 8 9 10 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码!" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ quay.io/minio/minio server \\ /data --console-address ":9050" nginx\n'><meta property='og:url' content='https://wlngo.github.io/archives/docker%E5%AE%89%E8%A3%85minio/'><meta property='og:site_name' content='wlngo blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2023-02-16T17:01:22+00:00'><meta property='article:modified_time' content='2023-02-16T17:01:22+00:00'><meta name=twitter:title content="docker 安装miniO"><meta name=twitter:description content='启动 1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_SERVER_URL=https://wlngo.top:9000" \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码" \\ -e "MINIO_BROWSER_REDIRECT_URL=https://wlngo.top:9050" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /var/opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ -v /etc/timezone:/etc/timezone:ro \\ -v /etc/localtime:/etc/localtime:ro \\ quay.io/minio/minio server \\ /data --console-address ":9050" 1 2 3 4 5 6 7 8 9 10 docker run -d -p 9000:9000 -p 9050:9050 \\ --name minio --restart=always \\ -e "MINIO_ROOT_USER=账号" \\ -e "MINIO_ROOT_PASSWORD=密码!" \\ -e "MINIO_DOMAIN"=wlngo.top \\ -v /opt/minio/data:/data \\ -v /opt/minio/config:/root/.minio \\ -e TZ=Asia/Shanghai \\ quay.io/minio/minio server \\ /data --console-address ":9050" nginx\n'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_67b8e70f23e47322.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>wlngo blog</a></h1><h2 class=site-description>欢迎来到 Wlngo 博客！这里是探索技术、分享思考与记录成长的地方。</h2></div></header><ol class=menu-social><li><a href=https://github.com/wlngo target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>家</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E9%93%BE%E6%8E%A5/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>链接</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#启动>启动</a></li><li><a href=#监控>监控</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/archives/docker%E5%AE%89%E8%A3%85minio/>docker 安装miniO</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Feb 16, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 3 分钟</time></div></footer></div></header><section class=article-content><h2 id=启动>启动</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=n>docker</span> <span class=n>run</span> <span class=o>-</span><span class=n>d</span> <span class=o>-</span><span class=n>p</span> <span class=mi>9000</span><span class=p>:</span><span class=mi>9000</span> <span class=o>-</span><span class=n>p</span> <span class=mi>9050</span><span class=p>:</span><span class=mi>9050</span> \
+</span></span><span class=line><span class=cl><span class=o>--</span><span class=n>name</span> <span class=n>minio</span> <span class=o>--</span><span class=n>restart</span><span class=o>=</span><span class=n>always</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=s2>&#34;MINIO_SERVER_URL=https://wlngo.top:9000&#34;</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=s2>&#34;MINIO_ROOT_USER=账号&#34;</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=s2>&#34;MINIO_ROOT_PASSWORD=密码&#34;</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=s2>&#34;MINIO_BROWSER_REDIRECT_URL=https://wlngo.top:9050&#34;</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span>  <span class=s2>&#34;MINIO_DOMAIN&#34;</span><span class=o>=</span><span class=n>wlngo</span><span class=o>.</span><span class=n>top</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=k>var</span><span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>minio</span><span class=o>/</span><span class=n>data</span><span class=p>:</span><span class=o>/</span><span class=n>data</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>opt</span><span class=o>/</span><span class=n>minio</span><span class=o>/</span><span class=n>config</span><span class=p>:</span><span class=o>/</span><span class=n>root</span><span class=o>/.</span><span class=n>minio</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>e</span> <span class=n>TZ</span><span class=o>=</span><span class=n>Asia</span><span class=o>/</span><span class=n>Shanghai</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>timezone</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl><span class=o>-</span><span class=n>v</span> <span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=o>/</span><span class=n>etc</span><span class=o>/</span><span class=n>localtime</span><span class=p>:</span><span class=n>ro</span> \
+</span></span><span class=line><span class=cl>  <span class=n>quay</span><span class=o>.</span><span class=n>io</span><span class=o>/</span><span class=n>minio</span><span class=o>/</span><span class=n>minio</span> <span class=n>server</span>  \
+</span></span><span class=line><span class=cl><span class=o>/</span><span class=n>data</span> <span class=o>--</span><span class=n>console</span><span class=o>-</span><span class=n>address</span> <span class=s2>&#34;:9050&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>docker run -d -p 9000:9000 -p 9050:9050 \
+</span></span><span class=line><span class=cl>--name minio --restart=always \
+</span></span><span class=line><span class=cl>-e &#34;MINIO_ROOT_USER=账号&#34; \
+</span></span><span class=line><span class=cl>-e &#34;MINIO_ROOT_PASSWORD=密码!&#34; \
+</span></span><span class=line><span class=cl>-e  &#34;MINIO_DOMAIN&#34;=wlngo.top \
+</span></span><span class=line><span class=cl>-v /opt/minio/data:/data \
+</span></span><span class=line><span class=cl>-v /opt/minio/config:/root/.minio \
+</span></span><span class=line><span class=cl>-e TZ=Asia/Shanghai \
+</span></span><span class=line><span class=cl>  quay.io/minio/minio server  \
+</span></span><span class=line><span class=cl>/data --console-address &#34;:9050&#34;
+</span></span></code></pre></td></tr></table></div></div><p>nginx</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span><span class=lnt>94
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-zed data-lang=zed><span class=line><span class=cl><span class=n>upstream</span><span class=w> </span><span class=n>minio_s3</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>least_conn</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>server</span><span class=w> </span><span class=err>192</span><span class=p>.</span><span class=err>168</span><span class=p>.</span><span class=err>123</span><span class=p>.</span><span class=err>124</span><span class=o>:</span><span class=err>9000</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>upstream</span><span class=w> </span><span class=n>minio_console</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>least_conn</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>server</span><span class=w> </span><span class=err>192</span><span class=p>.</span><span class=err>168</span><span class=p>.</span><span class=err>123</span><span class=p>.</span><span class=err>124</span><span class=o>:</span><span class=err>9050</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>server</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>listen</span><span class=w>       </span><span class=err>9000</span><span class=w> </span><span class=n>ssl</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>listen</span><span class=w>  </span><span class=p>[</span><span class=o>::</span><span class=p>]</span><span class=o>:</span><span class=err>9000</span><span class=w> </span><span class=n>ssl</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Allow</span><span class=w> </span><span class=n>special</span><span class=w> </span><span class=n>characters</span><span class=w> </span><span class=n>in</span><span class=w> </span><span class=n>headers</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ignore_invalid_headers</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Allow</span><span class=w> </span><span class=n>any</span><span class=w> </span><span class=n>size</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>be</span><span class=w> </span><span class=n>uploaded</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Set</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=n>such</span><span class=w> </span><span class=n>as</span><span class=w> </span><span class=err>1000</span><span class=n>m</span><span class=p>;</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>restrict</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=n>size</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=n>specific</span><span class=w> </span><span class=n>value</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>client_max_body_size</span><span class=w> </span><span class=err>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Disable</span><span class=w> </span><span class=n>buffering</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>proxy_buffering</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>proxy_request_buffering</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请填写证书文件的相对路径或绝对路径</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_certificate</span><span class=w> </span><span class=o>/</span><span class=nn>etc/nginx/ssl/</span><span class=n>wlngo</span><span class=p>.</span><span class=nn>top_nginx/</span><span class=n>wlngo</span><span class=p>.</span><span class=n>top_bundle</span><span class=p>.</span><span class=n>crt</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请填写私钥文件的相对路径或绝对路径</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_certificate_key</span><span class=w> </span><span class=o>/</span><span class=nn>etc/nginx/ssl/</span><span class=n>wlngo</span><span class=p>.</span><span class=nn>top_nginx/</span><span class=n>wlngo</span><span class=p>.</span><span class=n>top</span><span class=p>.</span><span class=n>key</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_session_timeout</span><span class=w> </span><span class=err>5</span><span class=n>m</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请按照以下协议配置</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_protocols</span><span class=w> </span><span class=n>TLSv1</span><span class=p>.</span><span class=err>2</span><span class=w> </span><span class=n>TLSv1</span><span class=p>.</span><span class=err>3</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请按照以下套件配置，配置加密套件，写法遵循</span><span class=w> </span><span class=n>openssl</span><span class=w> </span><span class=err>标准。</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_ciphers</span><span class=w> </span><span class=n>ECDHE</span><span class=o>-</span><span class=n>RSA</span><span class=o>-</span><span class=n>AES128</span><span class=o>-</span><span class=n>GCM</span><span class=o>-</span><span class=n>SHA256</span><span class=o>:</span><span class=n>HIGH</span><span class=o>:!</span><span class=n>aNULL</span><span class=o>:!</span><span class=n>MD5</span><span class=o>:!</span><span class=n>RC4</span><span class=o>:!</span><span class=n>DHE</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_prefer_server_ciphers</span><span class=w> </span><span class=n>on</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>location</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>Host</span><span class=w> </span><span class=err>$</span><span class=n>http_host</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Real</span><span class=o>-</span><span class=n>IP</span><span class=w> </span><span class=err>$</span><span class=n>remote_addr</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>For</span><span class=w> </span><span class=err>$</span><span class=n>proxy_add_x_forwarded_for</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>Proto</span><span class=w> </span><span class=err>$</span><span class=n>scheme</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_connect_timeout</span><span class=w> </span><span class=err>300</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=err>#</span><span class=w> </span><span class=n>Default</span><span class=w> </span><span class=n>is</span><span class=w> </span><span class=nn>HTTP/</span><span class=err>1</span><span class=p>,</span><span class=w> </span><span class=n>keepalive</span><span class=w> </span><span class=n>is</span><span class=w> </span><span class=n>only</span><span class=w> </span><span class=n>enabled</span><span class=w> </span><span class=n>in</span><span class=w> </span><span class=nn>HTTP/</span><span class=err>1</span><span class=p>.</span><span class=err>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_http_version</span><span class=w> </span><span class=err>1</span><span class=p>.</span><span class=err>1</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>Connection</span><span class=w> </span><span class=err>&#34;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>chunked_transfer_encoding</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_pass</span><span class=w> </span><span class=n>http</span><span class=o>:</span><span class=c1>//minio_s3; # This uses the upstream directive definition to load balance
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>   </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>server</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>listen</span><span class=w>       </span><span class=err>9050</span><span class=w> </span><span class=n>ssl</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>listen</span><span class=w>  </span><span class=p>[</span><span class=o>::</span><span class=p>]</span><span class=o>:</span><span class=err>9050</span><span class=w> </span><span class=n>ssl</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Allow</span><span class=w> </span><span class=n>special</span><span class=w> </span><span class=n>characters</span><span class=w> </span><span class=n>in</span><span class=w> </span><span class=n>headers</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ignore_invalid_headers</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Allow</span><span class=w> </span><span class=n>any</span><span class=w> </span><span class=n>size</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>be</span><span class=w> </span><span class=n>uploaded</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Set</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=n>value</span><span class=w> </span><span class=n>such</span><span class=w> </span><span class=n>as</span><span class=w> </span><span class=err>1000</span><span class=n>m</span><span class=p>;</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>restrict</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=n>size</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=n>specific</span><span class=w> </span><span class=n>value</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>client_max_body_size</span><span class=w> </span><span class=err>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#</span><span class=w> </span><span class=n>Disable</span><span class=w> </span><span class=n>buffering</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>proxy_buffering</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>proxy_request_buffering</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请填写证书文件的相对路径或绝对路径</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_certificate</span><span class=w> </span><span class=o>/</span><span class=nn>etc/nginx/ssl/</span><span class=n>wlngo</span><span class=p>.</span><span class=nn>top_nginx/</span><span class=n>wlngo</span><span class=p>.</span><span class=n>top_bundle</span><span class=p>.</span><span class=n>crt</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请填写私钥文件的相对路径或绝对路径</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_certificate_key</span><span class=w> </span><span class=o>/</span><span class=nn>etc/nginx/ssl/</span><span class=n>wlngo</span><span class=p>.</span><span class=nn>top_nginx/</span><span class=n>wlngo</span><span class=p>.</span><span class=n>top</span><span class=p>.</span><span class=n>key</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_session_timeout</span><span class=w> </span><span class=err>5</span><span class=n>m</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请按照以下协议配置</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_protocols</span><span class=w> </span><span class=n>TLSv1</span><span class=p>.</span><span class=err>2</span><span class=w> </span><span class=n>TLSv1</span><span class=p>.</span><span class=err>3</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=err>#请按照以下套件配置，配置加密套件，写法遵循</span><span class=w> </span><span class=n>openssl</span><span class=w> </span><span class=err>标准。</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_ciphers</span><span class=w> </span><span class=n>ECDHE</span><span class=o>-</span><span class=n>RSA</span><span class=o>-</span><span class=n>AES128</span><span class=o>-</span><span class=n>GCM</span><span class=o>-</span><span class=n>SHA256</span><span class=o>:</span><span class=n>HIGH</span><span class=o>:!</span><span class=n>aNULL</span><span class=o>:!</span><span class=n>MD5</span><span class=o>:!</span><span class=n>RC4</span><span class=o>:!</span><span class=n>DHE</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>ssl_prefer_server_ciphers</span><span class=w> </span><span class=n>on</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=n>location</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>Host</span><span class=w> </span><span class=err>$</span><span class=n>http_host</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Real</span><span class=o>-</span><span class=n>IP</span><span class=w> </span><span class=err>$</span><span class=n>remote_addr</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>For</span><span class=w> </span><span class=err>$</span><span class=n>proxy_add_x_forwarded_for</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Forwarded</span><span class=o>-</span><span class=n>Proto</span><span class=w> </span><span class=err>$</span><span class=n>scheme</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>NginX</span><span class=o>-</span><span class=n>Proxy</span><span class=w> </span><span class=n>true</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=err>#</span><span class=w> </span><span class=n>This</span><span class=w> </span><span class=n>is</span><span class=w> </span><span class=n>necessary</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>pass</span><span class=w> </span><span class=n>the</span><span class=w> </span><span class=n>correct</span><span class=w> </span><span class=n>IP</span><span class=w> </span><span class=n>to</span><span class=w> </span><span class=n>be</span><span class=w> </span><span class=n>hashed</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>real_ip_header</span><span class=w> </span><span class=n>X</span><span class=o>-</span><span class=n>Real</span><span class=o>-</span><span class=n>IP</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_connect_timeout</span><span class=w> </span><span class=err>300</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=err>#</span><span class=w> </span><span class=n>To</span><span class=w> </span><span class=n>support</span><span class=w> </span><span class=n>websocket</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_http_version</span><span class=w> </span><span class=err>1</span><span class=p>.</span><span class=err>1</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>Upgrade</span><span class=w> </span><span class=err>$</span><span class=n>http_upgrade</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_set_header</span><span class=w> </span><span class=n>Connection</span><span class=w> </span><span class=err>&#34;</span><span class=n>upgrade</span><span class=err>&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>chunked_transfer_encoding</span><span class=w> </span><span class=n>off</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=n>proxy_pass</span><span class=w> </span><span class=n>http</span><span class=o>:</span><span class=c1>//minio_console/; # This uses the upstream directive definition to load balance
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>   </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>https
+1.证书准备
+将申请的SSL证书 .key结尾的重命名为：private.key和 .crt结尾的重命名为：public.crt 别问为什么，官方规定，不信自己看官方文档：https://min.io/docs/minio/linux/operations/network-encryption.html?ref=docs-redirect
+然后将private.key和public.crt两个文件放到MinIO目录certs下面：/你的minio目录/config/certs</p><h2 id=监控>监控</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl> docker run -it --entrypoint=/bin/sh minio/mc
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mc alias set myminio https://www.weiliangning.work:9000  账号 密码
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mc admin prometheus generate myminio
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 wlngo</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.bunny.net/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on wlngo blog</title><link>https://wlngo.github.io/tags/docker/</link><description>Recent content in Docker on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Mon, 24 Jul 2023 00:14:34 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>tidb docker 部署</title><link>https://wlngo.github.io/archives/tidbdocker-bu-shu/</link><pubDate>Mon, 24 Jul 2023 00:14:34 +0000</pubDate><guid>https://wlngo.github.io/archives/tidbdocker-bu-shu/</guid><description>&lt;h1 id="tidb">tidb
+&lt;/h1>&lt;p>分布式数据库 参考[官网文档 https://docs.pingcap.com/zh/tidb/stable/quick-start-with-tidb/]&lt;/p>
+&lt;h2 id="部署">部署
+&lt;/h2>&lt;h3 id="部署pd1">部署pd1
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">pd1&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span>\
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd1&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/pd1&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd1:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd1:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">initial&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">cluster&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署pd2">部署pd2
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">pd2&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="mi">2379&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">2379&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd2&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd2&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/pd2&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd2:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd2:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">initial&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">cluster&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署pd3">部署pd3
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">pd3&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd3&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">pd&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd3&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/pd3&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd3:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://0.0.0.0:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">peer&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">urls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://pd3:2380&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">initial&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">cluster&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署tikv1">部署tikv1
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">tikv1&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">ulimit&lt;/span> &lt;span class="n">nofile&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000000&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">1000000&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tikv1&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tikv&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20160&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv1:20160&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/tikv1&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">pd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1:2379,pd2:2379,pd3:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">status&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv1:20180&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">status&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20180&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署tikv2">部署tikv2
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">tikv2&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">ulimit&lt;/span> &lt;span class="n">nofile&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000000&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">1000000&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tikv2&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tikv&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20160&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv2:20160&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/tikv2&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">pd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1:2379,pd2:2379,pd3:2379&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">advertise&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">status&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv2:20180&amp;#34;&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">status&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20180&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署tikv3">部署tikv3
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-docker" data-lang="docker">&lt;span class="line">&lt;span class="cl"> --restart always &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --ulimit &lt;span class="nv">nofile&lt;/span>&lt;span class="o">=&lt;/span>1000000:1000000 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -e &lt;span class="nv">TZ&lt;/span>&lt;span class="o">=&lt;/span>Asia/Shanghai &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v /opt/tidb/node_exporter:/opt/tidb/node_exporter &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v /etc/timezone:/etc/timezone:ro &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v /etc/localtime:/etc/localtime:ro &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -v /opt/tidb/tikv3/data:/data &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --network&lt;span class="o">=&lt;/span>elknetwork &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> pingcap/tikv:v7.1.0 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --addr&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20160&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --advertise-addr&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv3:20160&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/data/tikv3&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --pd&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1:2379,pd2:2379,pd3:2379&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --advertise-status-addr&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;tikv3:20180&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --status-addr&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0:20180&amp;#34;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署tidb">部署tidb
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">tidb&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="mi">4000&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4000&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="mi">10080&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">10080&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">store&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tikv&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;pd1:2379,pd2:2379,pd3:2379&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署tiflash">部署tiflash
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run --name tiflash \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -e TZ=Asia/Shanghai \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -v /etc/timezone:/etc/timezone:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -v /etc/localtime:/etc/localtime:ro \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -v /opt/tidb/tiflash/data:/data \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -v /opt/tidb/tiflash/conf/tiflash.toml:/opt/tidb/tiflash/conf/tiflash.toml \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --restart always -d \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --network=elknetwork \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> pingcap/tiflash:v7.1.0 --config=/opt/tidb/tiflash/conf/tiflash.toml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="部署ng-monitoring">部署ng-monitoring
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">docker&lt;/span> &lt;span class="n">run&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">e&lt;/span> &lt;span class="n">TZ&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Asia&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Shanghai&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">timezone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">etc&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">localtime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">ro&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">data&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">conf&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toml&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">conf&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toml&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">restart&lt;/span> &lt;span class="n">always&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">d&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span>&lt;span class="n">network&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">elknetwork&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pingcap&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">v7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">1.0&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">monitoring&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">conf&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toml&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">tidb&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">pd1&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">pd2&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">pd3&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">tikv1&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">tikv2&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">docker&lt;/span> &lt;span class="n">exec&lt;/span> &lt;span class="n">tikv3&lt;/span> &lt;span class="n">sh&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">opt&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">node_exporter&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">start&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="内存优化">内存优化
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker update --memory 6g --memory-swap -1 tiflash tidb tikv1 tikv2 tikv3 pd1 pd2 pd3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker update --memory 1g --memory-swap -1 ng-monitoring
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>SELECT @@tidb_server_memory_limit 默认=80%
+SET GLOBAL tidb_server_memory_limit = &amp;ldquo;4GB&amp;rdquo;;
+SELECT @@tidb_server_memory_limit_gc_trigger 默认=0.7
+select sysdate() 查询日期
+ALTER USER &amp;lsquo;root&amp;rsquo;@&amp;rsquo;%&amp;rsquo; IDENTIFIED BY &amp;lsquo;mypass&amp;rsquo;; 修改root密码&lt;/p>
+&lt;h2 id="haproxy-代理tidb">HAProxy 代理tidb
+&lt;/h2>&lt;p>安装&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo apt install haproxy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>/etc/haproxy/haproxy.cfg 配置&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">global&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 全局配置。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">127&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">local2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 定义全局的 syslog 服务器，最多可以定义两个。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">chroot&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">lib&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 更改当前目录并为启动进程设置超级用户权限，从而提高安全性。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">pidfile&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pid&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 将 HAProxy 进程的 PID 写入 pidfile。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">maxconn&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">4000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 每个 HAProxy 进程所接受的最大并发连接数。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 同 UID 参数。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">group&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 同 GID 参数，建议使用专用用户组。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">nbproc&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">40&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 在后台运行时创建的进程数。在启动多个进程转发请求时，确保该值足够大，保证 HAProxy 不会成为瓶颈。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">daemon&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 让 HAProxy 以守护进程的方式工作于后台，等同于命令行参数“-D”的功能。当然，也可以在命令行中用“-db”参数将其禁用。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">lib&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 统计信息保存位置。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">defaults&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 默认配置。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">global&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 日志继承全局配置段的设置。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">retries&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 向上游服务器尝试连接的最大次数，超过此值便认为后端服务器不可用。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">timeout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># HAProxy 与后端服务器连接超时时间。如果在同一个局域网内，可设置成较短的时间。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">timeout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">client&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">30000&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 客户端与 HAProxy 连接后，数据传输完毕，即非活动连接的超时时间。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">timeout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">server&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">30000&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 服务器端非活动连接的超时时间。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">listen&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">admin_stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># frontend 和 backend 的组合体，此监控组的名称可按需进行自定义。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">bind&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 监听端口。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 监控运行的模式，此处为 `http` 模式。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">option&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">httplog&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 开始启用记录 HTTP 请求的日志功能。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">maxconn&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 最大并发连接数。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">refresh&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">30&lt;/span>&lt;span class="n">s&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 每隔 30 秒自动刷新监控页面。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">uri&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">haproxy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 监控页面的 URL。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">realm&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">HAProxy&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 监控页面的提示信息。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">auth&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">admin&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">pingcap123&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 监控页面的用户和密码，可设置多个用户名。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">hide&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 隐藏监控页面上的 HAProxy 版本信息。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stats&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">admin&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="no">TRUE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 手工启用或禁用后端服务器（HAProxy 1.4.9 及之后版本开始支持）。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">listen&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">cluster&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 配置 database 负载均衡。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">bind&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">3390&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 浮动 IP 和 监听端口。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tcp&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># HAProxy 要使用第 4 层的传输层。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">balance&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">leastconn&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 连接数最少的服务器优先接收连接。`leastconn` 建议用于长会话服务，例如 LDAP、SQL、TSE 等，而不是短会话协议，如 HTTP。该算法是动态的，对于启动慢的服务器，服务器权重会在运行中作调整。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">server&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">9&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">18&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">229&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">check&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">inter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rise&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fall&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 检测 4000 端口，检测频率为每 2000 毫秒一次。如果 2 次检测为成功，则认为服务器可用；如果 3 次检测为失败，则认为服务器不可用。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">server&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">9&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">39&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">208&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">check&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">inter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rise&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fall&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">server&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tidb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">9&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">166&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">check&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">inter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2000&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rise&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fall&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
