@@ -8,4 +8,4 @@ tags:
 ---
 
 
-# ☕ code-server安装.md
+# ☕ code-server安装
