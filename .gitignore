@@ -7,3 +7,7 @@
 /dataSources/
 /dataSources.local.xml
 /.idea/
+/.hugo_build.lock
+/public/
+/resources/
+/assets/jsconfig.json
