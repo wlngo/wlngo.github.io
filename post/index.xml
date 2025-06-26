@@ -1,11 +1,126 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on wlngo blog</title><link>https://wlngo.github.io/post/</link><description>Recent content in Posts on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Wed, 18 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>导航</title><link>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</link><pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</guid><description>&lt;h2 id="私有内网oss">&lt;a class="link" href="https://lb.wlngo.top:9050/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on wlngo blog</title><link>https://wlngo.github.io/post/</link><description>Recent content in Posts on wlngo blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>wlngo</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wlngo.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>导航</title><link>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</link><pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/p/%E5%AF%BC%E8%88%AA/</guid><description>&lt;h2 id="私有内网oss">&lt;a class="link" href="https://lb.wlngo.top:9050/" target="_blank" rel="noopener"
 >私有内网Oss&lt;/a>
 &lt;/h2>&lt;h2 id="alist">&lt;a class="link" href="https://lb.wlngo.top:5244/" target="_blank" rel="noopener"
 >Alist&lt;/a>
 &lt;/h2>&lt;h2 id="qb">&lt;a class="link" href="https://lb.wlngo.top:8060/" target="_blank" rel="noopener"
 >qb&lt;/a>
-&lt;/h2></description></item><item><title>code-server安装</title><link>https://wlngo.github.io/archives/code-server/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/code-server/</guid><description>&lt;h1 id="-code-server安装">☕ code-server安装
-&lt;/h1></description></item><item><title>Java使用ffmpeg</title><link>https://wlngo.github.io/archives/java-ffmpeg/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/java-ffmpeg/</guid><description>&lt;h1 id="-java-使用-ffmpeg-实战手册">☕ Java 使用 FFmpeg 实战手册
+&lt;/h2></description></item><item><title>code-server安装</title><link>https://wlngo.github.io/archives/code-server/</link><pubDate>Thu, 26 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/code-server/</guid><description>&lt;h1 id="-code-server安装">☕ code-server安装
+&lt;/h1>&lt;p>详细文档见：&lt;a class="link" href="https://coder.com/docs/code-server/install#fedora-centos-rhel-suse" target="_blank" rel="noopener"
+>https://coder.com/docs/code-server/install#fedora-centos-rhel-suse&lt;/a>&lt;/p>
+&lt;h2 id="子域名配置">子域名配置
+&lt;/h2>&lt;p>文档见：&lt;a class="link" href="https://coder.com/docs/code-server/guide#using-a-subdomain" target="_blank" rel="noopener"
+>https://coder.com/docs/code-server/guide#using-a-subdomain&lt;/a>&lt;/p>
+&lt;h3 id="systemd-服务配置示例">systemd 服务配置示例
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">code-server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">exec&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/code-server --proxy-domain api.wlngo.top&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">User&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">%i&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">default.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="使用-acmesh-申请-ssl-证书dns-验证---腾讯云-dns">使用 acme.sh 申请 SSL 证书（DNS 验证 - 腾讯云 DNS）
+&lt;/h1>&lt;h2 id="申请证书">申请证书
+&lt;/h2>&lt;p>使用 &lt;code>dns_dp&lt;/code> 插件（腾讯云 DNS）通过 DNS 验证申请 &lt;code>wlngo.top&lt;/code> 及其通配符证书：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DP_Id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;你的腾讯云 SecretId&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">DP_Key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;你的腾讯云 SecretKey&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./acme.sh --issue -d wlngo.top -d &lt;span class="s1">&amp;#39;*.wlngo.top&amp;#39;&lt;/span> -d &lt;span class="s1">&amp;#39;*api.wlngo.top&amp;#39;&lt;/span> --dns dns_dp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="自动续期任务">自动续期任务
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./acme.sh --install-cert -d wlngo.top --key-file /etc/nginx/ssl/wlngo.top.key --fullchain-file /etc/nginx/ssl/wlngo.top.fullchain.pem --reloadcmd &lt;span class="s2">&amp;#34;systemctl reload nginx&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="nginx-配置示例">Nginx 配置示例
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">server {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 80;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> # 排除 80 和 443 端口（通过正则）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name ~^(?!(80|443))(?&amp;lt;port&amp;gt;\d+)\.api\.wlngo\.top$;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> return 301 https://$host$request_uri;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 443 ssl;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name ~^(?!(80|443))(?&amp;lt;port&amp;gt;\d+)\.api\.wlngo\.top$;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate /etc/nginx/ssl/wlngo.top.fullchain.pem;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate_key /etc/nginx/ssl/wlngo.top.key;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://127.0.0.1:$port;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Java使用ffmpeg</title><link>https://wlngo.github.io/archives/java-ffmpeg/</link><pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate><guid>https://wlngo.github.io/archives/java-ffmpeg/</guid><description>&lt;h1 id="-java-使用-ffmpeg-实战手册">☕ Java 使用 FFmpeg 实战手册
 &lt;/h1>&lt;p>如果你已经安装了 FFmpeg，可以直接通过 Java 的 &lt;code>ProcessBuilder&lt;/code> 或 &lt;code>Runtime.exec()&lt;/code> 来执行 FFmpeg 命令，实现音视频的转换、截图、压缩、录制等功能，无需引入任何第三方依赖。&lt;/p>
 &lt;hr>
 &lt;h2 id="-前提条件">✅ 前提条件
